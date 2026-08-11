@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I'm Sorry ❤️</title>
+    <style>
+        body {
+            background-color: #ffdde1;
+            background-image: linear-gradient(to top, #ffdde1 0%, #ee9ca7 100%);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+        h2 {
+            color: #d63384;
+            margin-bottom: 20px;
+        }
+        .cat-img {
+            font-size: 80px;
+            margin-bottom: 10px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            position: relative;
+            height: 50px;
+        }
+        button {
+            padding: 10px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        #yes-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        #no-btn {
+            background-color: #dc3545;
+            color: white;
+            position: absolute;
+        }
+        .hidden {
+            display: none;
+        }
+        .gifts {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .gift-box {
+            font-size: 40px;
+            cursor: pointer;
+            background: #ffe6eb;
+            padding: 15px;
+            border-radius: 15px;
+        }
+        .message-box {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+            background: #fff0f3;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .back-btn {
+            background-color: #ff477e;
+            color: white;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-card">
+        <div class="cat-img">🥺</div>
+        <h2 id="question-text">I'm so sorry... Can you forgive me? 💔</h2>
+        <div class="buttons" id="btn-group">
+            <button id="yes-btn" onclick="sayYes()">YES</button>
+            <button id="no-btn" onmouseover="moveNo()" onclick="moveNo()">NO</button>
+        </div>
+    </div>
+
+    <!-- YES басқан кезде шығатын бет -->
+    <div class="container hidden" id="success-card">
+        <h2>Yay! Thank you for forgiving me 💕</h2>
+        <div class="cat-img">😽</div>
+        <div class="gifts">
+            <div class="gift-box" onclick="openGift(1)">🎁<br><small>GIFT 1</small></div>
+            <div class="gift-box" onclick="openGift(2)">🎁<br><small>GIFT 2</small></div>
+            <div class="gift-box" onclick="openGift(3)">🎁<br><small>GIFT 3</small></div>
+        </div>
+        <div id="gift-content" class="message-box hidden"></div>
+        <button class="back-btn hidden" id="back-btn" onclick="goBack()">Go back</button>
+    </div>
+
+    <script>
+        const messages = [
+            "nah that's not right...",
+            "be serious...",
+            "please say yes... 🥺",
+            "you can't say no! 😜",
+            "just click YES already! ❤️"
+        ];
+        let msgIndex = 0;
+
+        function moveNo() {
+            const noBtn = document.getElementById('no-btn');
+            const qText = document.getElementById('question-text');
+            
+            // NO батырмасын кездейсоқ орынға қашыру
+            const x = Math.random() * 200 - 100;
+            const y = Math.random() * 100 - 50;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+            // Мәтінді өзгерту
+            qText.innerText = messages[msgIndex];
+            msgIndex = (msgIndex + 1) % messages.length;
+        }
+
+        function sayYes() {
+            document.getElementById('main-card').classList.add('hidden');
+            document.getElementById('success-card').classList.remove('hidden');
+        }
+
+        function openGift(num) {
+            const content = document.getElementById('gift-content');
+            const backBtn = document.getElementById('back-btn');
+            content.classList.remove('hidden');
+            backBtn.classList.remove('hidden');
+
+            if(num === 1) {
+                content.innerHTML = "<b>Our memories 📸</b><br>Ренжітсем кешірші, жаным! Сен мен үшін бәрінен қымбатсың. 🥰";
+            } else if(num === 2) {
+                content.innerHTML = "<b>A song for you 🎶</b><br>Risk It All - Bruno Mars (Сенің күлкің маған бәрінен маңызды ❤️)";
+            } else if(num === 3) {
+                content.innerHTML = "<b>Dear Diko, 💌</b><br>Бұл сайт тек сенің жүрегіңді жібіту үшін жасалды. Менің ең тәтті принцессамсың, ренжімеші! ✨";
+            }
+        }
+
+        function goBack() {
+            document.getElementById('gift-content').classList.add('hidden');
+            document.getElementById('back-btn').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
